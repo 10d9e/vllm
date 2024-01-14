@@ -20,8 +20,27 @@ command:
 cargo run
 ```
 
-This is an empty template, and so there is no expected output (until you modify
-the code).
+## How to run?
+1. Grab Karpathy's baby Llama2 ([Orig instructions](https://github.com/karpathy/llama2.c#feel-the-magic)) pretrained on [TinyStories](https://huggingface.co/datasets/roneneldan/TinyStories) dataset 
+
+    ```bash
+    wget https://huggingface.co/karpathy/tinyllamas/resolve/main/stories15M.bin
+    wget https://huggingface.co/karpathy/tinyllamas/resolve/main/stories42M.bin
+    wget https://huggingface.co/karpathy/tinyllamas/resolve/main/stories110M.bin
+    ```
+2. Make sure you have the tokenizer binary - `tokenizer.bin` (if not see [tokenizer.py](tokenizer.py))
+3. Compile and run the Rust code
+
+    Single threaded:
+
+    ```bash
+    cargo run --release stories42M.bin 0.9  # <model_path> [temperature]
+    ```
+
+    Multipthreaded (depends on Rayon)
+    ```bash
+    cargo run --release  -F parallel stories42M.bin 0.9 # <model_path> [temperature]
+    ```
 
 ### Executing the project locally in development mode
 
